@@ -1,0 +1,38 @@
+{
+  "name": "heron",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Personal CV / portfolio site. Static, content/design separated, built with Astro.",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "check": "astro check",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "verify": "pnpm run check && pnpm run lint && pnpm run format:check && pnpm run build"
+  },
+  "engines": {
+    "node": ">=20",
+    "pnpm": ">=9"
+  },
+  "packageManager": "pnpm@11.18.0",
+  "dependencies": {
+    "@astrojs/check": "0.9.10",
+    "@astrojs/sitemap": "3.7.4",
+    "astro": "7.3.3",
+    "typescript": "6.0.3"
+  },
+  "devDependencies": {
+    "@eslint/js": "10.0.1",
+    "eslint": "10.11.0",
+    "eslint-plugin-astro": "3.2.1",
+    "astro-eslint-parser": "3.1.0",
+    "typescript-eslint": "8.70.1",
+    "prettier": "3.9.8",
+    "prettier-plugin-astro": "1.0.1"
+  }
+}
