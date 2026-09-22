@@ -1,0 +1,36 @@
+---
+import type { EducationEntry } from "@/types/cv";
+import { formatDateRange } from "@/utils/formatDate";
+
+interface Props {
+  entries: EducationEntry[];
+}
+
+const { entries } = Astro.props;
+---
+
+{entries.length > 0 && (
+  <section aria-labelledby="education-heading" class="container">
+    <h2 id="education-heading">Education</h2>
+    {entries.map((entry) => (
+      <article class="entry">
+        <div class="entry-header">
+          <h3>
+            {entry.credential}
+            {entry.field ? `, ${entry.field}` : ""} · {entry.institution}
+          </h3>
+          <span class="entry-dates">{formatDateRange(entry.startDate, entry.endDate)}</span>
+        </div>
+        {entry.location && <p class="muted">{entry.location}</p>}
+        {entry.summary && <p>{entry.summary}</p>}
+      </article>
+    ))}
+  </section>
+)}
+
+<style>
+  h3 {
+    font-size: 1rem;
+    margin: 0;
+  }
+</style>

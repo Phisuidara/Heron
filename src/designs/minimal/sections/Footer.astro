@@ -1,0 +1,23 @@
+---
+import type { Profile } from "@/types/cv";
+
+interface Props {
+  profile: Profile;
+}
+
+const { profile } = Astro.props;
+const year = new Date().getFullYear();
+---
+
+<footer class="container site-footer">
+  <p class="muted mono">
+    © {year} {profile.fullName}. Built with Astro.
+  </p>
+</footer>
+
+<style>
+  .site-footer {
+    padding-block: var(--space-5) var(--space-6);
+    font-size: 0.8125rem;
+  }
+</style>

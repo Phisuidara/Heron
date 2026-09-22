@@ -1,0 +1,44 @@
+---
+import type { CvData } from "@/types/cv";
+import SEO from "@/components/SEO.astro";
+import { withBase } from "@/utils/url";
+import "@/styles/reset.css";
+import "./tokens.css";
+import Hero from "./sections/Hero.astro";
+import Experience from "./sections/Experience.astro";
+import Projects from "./sections/Projects.astro";
+import Education from "./sections/Education.astro";
+import Skills from "./sections/Skills.astro";
+import Extras from "./sections/Extras.astro";
+import Footer from "./sections/Footer.astro";
+
+interface Props {
+  cv: CvData;
+}
+
+const { cv } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href={withBase("favicon.svg")} />
+    <SEO profile={cv.profile} />
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">
+      Skip to main content
+    </a>
+    <main id="main-content">
+      <Hero profile={cv.profile} />
+      <Experience entries={cv.experience} />
+      <Projects projects={cv.projects} />
+      <Education entries={cv.education} />
+      <Skills groups={cv.skills} />
+      <Extras certifications={cv.certifications} languages={cv.languages} />
+    </main>
+    <Footer profile={cv.profile} />
+  </body>
+</html>

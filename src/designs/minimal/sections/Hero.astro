@@ -1,0 +1,65 @@
+---
+import type { Profile } from "@/types/cv";
+
+interface Props {
+  profile: Profile;
+}
+
+const { profile } = Astro.props;
+---
+
+<header class="hero container">
+  <p class="mono muted hero-kicker" aria-hidden="true">
+    // engineer's notebook
+  </p>
+  <h1>{profile.fullName}</h1>
+  <p class="hero-headline">{profile.headline}</p>
+  <p class="hero-summary">{profile.summary}</p>
+
+  <ul class="hero-links" aria-label="Contact and profile links">
+    {profile.links.map((link) => (
+      <li>
+        <a class="link" href={link.url}>
+          {link.label}
+        </a>
+      </li>
+    ))}
+  </ul>
+
+  {profile.location && <p class="muted hero-location">{profile.location}</p>}
+</header>
+
+<style>
+  .hero {
+    padding-block: var(--space-6) var(--space-5);
+  }
+
+  .hero-kicker {
+    margin: 0 0 var(--space-2);
+  }
+
+  .hero-headline {
+    font-size: 1.125rem;
+    color: var(--color-text-muted);
+    margin-top: var(--space-2);
+  }
+
+  .hero-summary {
+    max-width: 38rem;
+    margin-top: var(--space-3);
+  }
+
+  .hero-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+    margin-top: var(--space-4);
+    padding: 0;
+    list-style: none;
+  }
+
+  .hero-location {
+    margin-top: var(--space-3);
+    font-size: 0.875rem;
+  }
+</style>

@@ -1,0 +1,45 @@
+---
+import type { SkillGroup } from "@/types/cv";
+
+interface Props {
+  groups: SkillGroup[];
+}
+
+const { groups } = Astro.props;
+---
+
+{groups.length > 0 && (
+  <section aria-labelledby="skills-heading" class="container">
+    <h2 id="skills-heading">Skills</h2>
+    <div class="skill-groups">
+      {groups.map((group) => (
+        <div class="skill-group">
+          <h3>{group.category}</h3>
+          <ul class="tag-list" aria-label={`${group.category} skills`}>
+            {group.skills.map((skill) => (
+              <li class="tag">
+                {skill.name}
+                {skill.level ? ` · ${skill.level}` : ""}
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))}
+    </div>
+  </section>
+)}
+
+<style>
+  .skill-groups {
+    display: grid;
+    gap: var(--space-4);
+  }
+
+  .skill-group h3 {
+    font-size: 0.875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--color-text-muted);
+    margin: 0 0 var(--space-2);
+  }
+</style>

@@ -1,0 +1,17 @@
+---
+// This page intentionally contains no visual logic. It resolves `activeDesign`
+// to a layout component and hands it the CV content. To change the site's
+// design, edit `activeDesign` in src/designs/index.ts — nothing here needs to
+// change. To add a new design, add its key to `designLayouts` below.
+import { activeDesign } from "@/designs";
+import { cv } from "@/content";
+import MinimalLayout from "@/designs/minimal/layout.astro";
+
+const designLayouts = {
+  minimal: MinimalLayout,
+} as const;
+
+const Layout = designLayouts[activeDesign];
+---
+
+<Layout cv={cv} />
