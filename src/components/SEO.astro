@@ -1,0 +1,44 @@
+---
+import type { Profile } from "@/types/cv";
+import { withBase } from "@/utils/url";
+
+interface Props {
+  profile: Profile;
+}
+
+const { profile } = Astro.props;
+
+const title = `${profile.fullName} — ${profile.headline}`;
+const description = profile.summary;
+const canonicalUrl = new URL(Astro.url.pathname, Astro.site).toString();
+const ogImageUrl = new URL(withBase("og-image.png"), Astro.site).toString();
+
+const personJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: profile.fullName,
+  jobTitle: profile.headline,
+  description: profile.summary,
+  email: profile.email,
+  address: profile.location,
+  url: canonicalUrl,
+  sameAs: profile.links.map((link) => link.url).filter((url) => !url.startsWith("mailto:")),
+};
+---
+
+<title>{title}</title>
+<meta name="description" content={description} />
+<link rel="canonical" href={canonicalUrl} />
+
+<meta property="og:type" content="profile" />
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:url" content={canonicalUrl} />
+<meta property="og:image" content={ogImageUrl} />
+
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={title} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={ogImageUrl} />
+
+<script type="application/ld+json" set:html={JSON.stringify(personJsonLd)}></script>

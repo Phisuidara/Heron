@@ -1,0 +1,79 @@
+---
+import type { Certification, Language } from "@/types/cv";
+import { formatMonthYear } from "@/utils/formatDate";
+
+interface Props {
+  certifications: Certification[];
+  languages: Language[];
+}
+
+const { certifications, languages } = Astro.props;
+const hasAny = certifications.length > 0 || languages.length > 0;
+---
+
+{hasAny && (
+  <section aria-labelledby="extras-heading" class="container">
+    <h2 id="extras-heading">Certifications & Languages</h2>
+    <div class="extras-grid">
+      {certifications.length > 0 && (
+        <div>
+          <h3>Certifications</h3>
+          <ul class="extras-list">
+            {certifications.map((cert) => (
+              <li>
+                {cert.credentialUrl ? (
+                  <a class="link" href={cert.credentialUrl}>
+                    {cert.name}
+                  </a>
+                ) : (
+                  cert.name
+                )}{" "}
+                <span class="muted">
+                  — {cert.issuer}, {formatMonthYear(cert.issueDate)}
+                </span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+      {languages.length > 0 && (
+        <div>
+          <h3>Languages</h3>
+          <ul class="extras-list">
+            {languages.map((lang) => (
+              <li>
+                {lang.name} <span class="muted">— {lang.proficiency}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+    </div>
+  </section>
+)}
+
+<style>
+  .extras-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+    gap: var(--space-4);
+  }
+
+  h3 {
+    font-size: 0.875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--color-text-muted);
+    margin: 0 0 var(--space-2);
+  }
+
+  .extras-list {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+  }
+
+  .extras-list li + li {
+    margin-top: var(--space-2);
+  }
+</style>
